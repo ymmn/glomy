@@ -1,0 +1,78 @@
+<!-- login -->
+<div ng-hide="current_user">
+  <form class="form-horizontal">
+	<div class="form-group">
+	  <label for="inputEmail3" class="col-sm-2 control-label">User</label>
+	  <div class="col-sm-10">
+		<input ng-model="username" type="text" class="form-control" id="inputEmail3" placeholder="Username">
+	  </div>
+	</div>
+	<div class="form-group">
+	  <div class="col-sm-offset-2 col-sm-10">
+		<button ng-click="login()" type="submit" class="btn btn-default">Sign in</button>
+	  </div>
+	</div>
+  </form>
+</div>
+
+<!-- goals -->
+<div ng-show="current_user && !current_goal">
+  <h1>Goals</h1>
+  <div class="row" ng-repeat="goal in goals">
+	<div class="col-md-offset-2 col-md-8">
+	  <h4>
+		<a ng-click="openGoal(goal)" href>{{getGoalName(goal)}}</a>
+	  </h4>
+	</div>
+  </div>
+  <form class="form-horizontal">
+	<div class="form-group">
+	  <label for="inputEmail3" class="col-sm-2 control-label">New Goal</label>
+	  <div class="col-sm-10">
+		<input ng-model="new_goal_name" type="text" class="form-control" id="inputEmail3" placeholder="New Goal">
+	  </div>
+	</div>
+	<div class="form-group">
+	  <label for="inputEmail3" class="col-sm-2 control-label">Goal Per Day</label>
+	  <div class="col-sm-10">
+		<input ng-model="goal_per_day" type="number" class="form-control" id="inputEmail3" placeholder="Goal Per Day">
+	  </div>
+	</div>
+	<div class="form-group">
+	  <div class="col-sm-offset-2 col-sm-10">
+		<button ng-click="createGoal()" type="submit" class="btn btn-default">Create</button>
+	  </div>
+	</div>
+  </form>
+</div>
+
+<!--- Goal Detail -->
+<div ng-show="current_goal">
+  <h1>{{goal_name}}: {{count}}</h1>
+
+  <!-- Gamified -->
+  <div ng-show="show_gamified">
+	<h3>Level: {{level}}</h3>
+	<h4>Next Level is {{nextLevelAt}} away!</h4>
+  </div>
+
+  <h4>History</h4>
+  <div class="row" ng-repeat="(datetime, count) in goal_data">
+	<div class="col-md-offset-2 col-md-8">
+	  {{format_dtime(datetime)}}: {{count}}
+	</div>
+  </div>
+  <form class="form-horizontal">
+	<div class="form-group">
+	  <label for="inputEmail3" class="col-sm-2 control-label">Append</label>
+	  <div class="col-sm-10">
+		<input ng-model="new_count" type="number" class="form-control" id="inputEmail3" placeholder="How many">
+	  </div>
+	</div>
+	<div class="form-group">
+	  <div class="col-sm-offset-2 col-sm-10">
+		<button ng-click="addToCount()" type="submit" class="btn btn-default">Append</button>
+	  </div>
+	</div>
+  </form>
+</div>
