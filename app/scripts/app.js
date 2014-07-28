@@ -7,7 +7,7 @@ angular.module('glomyApp', [
   'ngRoute',
   'firebase'
 ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider, $httpProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -16,6 +16,38 @@ angular.module('glomyApp', [
       .otherwise({
         redirectTo: '/'
       });
+
+	  $httpProvider.interceptors.push(function($q, $rootScope) {
+		  return {
+			  'request': function(config) {
+				  $rootScope.$broadcast('loading-started');
+				  return config || $q.when(config);
+			  },
+			  'response': function(response) {
+				  $rootScope.$broadcast('loading-complete');
+				  return response || $q.when(response);
+			  }
+		  };
+	  });
+
+  })
+  .directive("loadingIndicator", function() {
+	return {
+	  restrict : "A",
+	  template: "<i class='fa fa-refresh fa-spin'></i>",
+	  link : function(scope, element, attrs) {
+		  scope.$on("loading-started", function(e) {
+			  alert("start");
+			  element.css({"display" : ""});
+		  });
+
+		  scope.$on("loading-complete", function(e) {
+			  alert("done");
+			  element.css({"display" : "none"});
+		  });
+
+	  }
+	};
   })
   .controller('NavCtrl', [
 	'$cookies',
@@ -25,6 +57,10 @@ angular.module('glomyApp', [
 	  $scope.logout = function() {
 		$rootScope.current_user = undefined;
 		$cookies.username = undefined;
+	  }
+
+	  $scope.gotoHome = function() {
+		$rootScope.current_goal = undefined;
 	  }
 
 	  $rootScope.current_user = $cookies.username;

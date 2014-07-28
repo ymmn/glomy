@@ -1,4 +1,4 @@
 glomy
 =====
 
-- [ ] 
+- [ ] loading indication

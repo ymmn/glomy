@@ -12,11 +12,16 @@ angular.module('glomyApp')
 
 	  /*************** Login *************/
 	  $scope.login = function() {
-		$rootScope.current_user = $scope.username;
 		$cookies.username = $scope.username;
-		var fbRef = new Firebase(fbBaseUrl + $scope.current_user)
-		$scope.goals = $firebase(fbRef);
+		$rootScope.current_user = $scope.username;
 	  }
+
+	  $rootScope.$watch('current_user', function(nval, oldval) {
+		if( nval !== undefined ) {
+		  var fbRef = new Firebase(fbBaseUrl + $scope.current_user)
+		  $scope.goals = $firebase(fbRef);
+		}
+	  });
 
 	  /************** Goal index ***********/
 	  $scope.createGoal = function() {
@@ -38,7 +43,7 @@ angular.module('glomyApp')
 
 	  /************** Goal Detail ************/
 	  $scope.openGoal = function(goal) {
-		$scope.current_goal = goal;	
+		$rootScope.current_goal = goal;	
 		$scope.goal_name = Object.keys(goal)[0];
 		$scope.goal_data = goal[$scope.goal_name].data;
 		var totalCnt = 0;
@@ -95,7 +100,7 @@ angular.module('glomyApp')
 	  }
 
 	  var initGami = function() {
-		expTable = initExpTable(3650 * $scope.current_goal[$scope.goal_name].per_day);
+		expTable = initExpTable(3650 * $rootScope.current_goal[$scope.goal_name].per_day);
 		updateGami();
 	  }
 

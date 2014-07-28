@@ -12,7 +12,8 @@
     "angular-sanitize": "1.2.6",
     "angular-route": "1.2.6",
     "firebase": "latest",
-    "angularfire": "latest"
+    "angularfire": "latest",
+    "fontawesome": "latest"
   },
   "devDependencies": {
     "angular-mocks": "1.2.6",

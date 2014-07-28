@@ -12,12 +12,12 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+    <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.css">
     <link rel="stylesheet" href="styles/bootstrap.css">
   </head>
   <body ng-app="glomyApp">
@@ -31,7 +31,7 @@
 		<span ng-show="current_user">{{current_user}} | <a ng-click="logout()" href>Logout</a></span>
 		<span ng-hide="current_user">Log in</span>
 	  </ul>
-	  <h3>glomy</h3>
+	  <a ng-click="gotoHome()" href><h3>glomy</h3></a>
 	</div>
 
     <div class="container" ng-view=""></div>
