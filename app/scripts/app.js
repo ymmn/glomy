@@ -16,4 +16,17 @@ angular.module('glomyApp', [
       .otherwise({
         redirectTo: '/'
       });
-  });
+  })
+  .controller('NavCtrl', [
+	'$cookies',
+	'$rootScope',
+	'$scope',
+	function($cookies, $rootScope, $scope) {
+	  $scope.logout = function() {
+		$rootScope.current_user = undefined;
+		$cookies.username = undefined;
+	  }
+
+	  $rootScope.current_user = $cookies.username;
+	}
+  ]);

@@ -26,9 +26,9 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-	<div class="container header">
+	<div ng-controller="NavCtrl" class="container header">
 	  <ul class="nav nav-pills pull-right">
-		<span ng-show="current_user">Logged in as: {{current_user}}</span>
+		<span ng-show="current_user">{{current_user}} | <a ng-click="logout()" href>Logout</a></span>
 		<span ng-hide="current_user">Log in</span>
 	  </ul>
 	  <h3>glomy</h3>

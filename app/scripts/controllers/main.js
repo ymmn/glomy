@@ -3,21 +3,20 @@
 angular.module('glomyApp')
   .controller('MainCtrl', [
 	'$scope',
+	'$cookies',
 	'$rootScope',
 	'$filter',
 	'$firebase',
-	function ($scope, $rootScope, $filter, $firebase) {
+	function ($scope, $cookies, $rootScope, $filter, $firebase) {
 	  var fbBaseUrl = "https://ymn.firebaseio.com/glomy/";
 
 	  /*************** Login *************/
 	  $scope.login = function() {
-		$scope.current_user = $scope.username;
 		$rootScope.current_user = $scope.username;
+		$cookies.username = $scope.username;
 		var fbRef = new Firebase(fbBaseUrl + $scope.current_user)
 		$scope.goals = $firebase(fbRef);
-		console.log($scope.goals);
 	  }
-
 
 	  /************** Goal index ***********/
 	  $scope.createGoal = function() {
@@ -45,7 +44,6 @@ angular.module('glomyApp')
 		var totalCnt = 0;
 		for(var dt in $scope.goal_data) {
 		  totalCnt += $scope.goal_data[dt];
-		  console.log($scope.goal_data[dt]);
 		}
 		$scope.count = totalCnt;
 		initGami();
@@ -94,7 +92,6 @@ angular.module('glomyApp')
 	  var updateGami = function() {
 		$scope.level = getLevel($scope.count);
 		$scope.nextLevelAt = getNextLevelCnt($scope.level);
-		console.log("HEY");
 	  }
 
 	  var initGami = function() {
