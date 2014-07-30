@@ -34,6 +34,7 @@ angular.module('glomyApp')
 		};
 		$scope.goals.$add(newGoal);
 		$scope.new_goal_name = "";
+		$scope.goal_per_day = "";
 	  }
 
 	  $scope.getGoalName = function(goal) {
@@ -63,6 +64,7 @@ angular.module('glomyApp')
 		$scope.count += $scope.new_count;
 		$scope.goals.$save();
 		updateGami();
+		$scope.new_count = "";
 	  }
 
 	  /************ Gamified ***********/
